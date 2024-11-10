@@ -1,6 +1,10 @@
-//
-// Created by Arindam on 08/11/2024.
-//
+/**
+ * @file config.cpp
+ * @brief Functions for loading and saving configuration data.
+ *
+ * @author Arindam Biswas
+ * @date 08/11/2024
+ */
 
 #include "config.hpp"
 #include <iostream>

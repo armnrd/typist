@@ -18,11 +18,8 @@
 QMap<QString, QString> initialize_symbol_data() {
     QMap<QString, QString> symbol_data;
 
-    // Unicode range for emojis and mathematical symbols
-    UChar32 start = 0x1F600; // Start of common emoji range
-    UChar32 end = 0x1F64F;   // End of common emoji range
-
-    for (UChar32 codepoint = start; codepoint <= end; ++codepoint) {
+    // Add emojis range (U+1F600 to U+1F64F)
+    for (UChar32 codepoint = 0x1F600; codepoint <= 0x1F64F; ++codepoint) {
         if (u_isdefined(codepoint)) {
             UErrorCode status = U_ZERO_ERROR;
             char name[100];

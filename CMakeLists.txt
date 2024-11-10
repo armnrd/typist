@@ -22,10 +22,12 @@ find_package(icu REQUIRED COMPONENTS uc i18n)
 set(PROJECT_SOURCES
         main.cpp
         config.cpp
-        config.hpp)
+        config.hpp
+        symbol_data.cpp
+        symbol_data.hpp)
 
-#add_executable(Typist ${PROJECT_SOURCES})
-add_executable(Typist WIN32 symbol_search_test.cpp)
+add_executable(Typist ${PROJECT_SOURCES})
+#add_executable(Typist WIN32 symbol_search_test.cpp)
 
 target_link_libraries(Typist
         Qt::Core
