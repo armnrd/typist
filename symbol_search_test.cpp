@@ -9,13 +9,10 @@
 #include <QWidget>
 #include <QString>
 #include <QMap>
-#include <QListWidgetItem>
 #include <unicode/unistr.h>
 #include <unicode/uchar.h>
-#include <unicode/uname.h>
 #include <QClipboard>
 #include <QGuiApplication>
-#include <iostream>
 
 // Function to initialize the symbol descriptions using ICU
 QMap<QString, QString> initialize_symbol_data() {
@@ -32,22 +29,91 @@ QMap<QString, QString> initialize_symbol_data() {
             u_charName(codepoint, U_UNICODE_CHAR_NAME, name, sizeof(name), &status);
             if (U_SUCCESS(status)) {
                 QString description = QString::fromStdString(std::string(name)).toLower();
-                QString symbol = QString::fromUcs4(&codepoint, 1);
+                QString symbol = QString::fromUcs4(reinterpret_cast<const char32_t *>(&codepoint), 1);
                 symbol_data[description] = symbol;
             }
         }
     }
 
-    // Add more symbols (mathematical symbols, etc.)
-    UChar32 math_symbols[] = {0x2211, 0x222B, 0x03C0, 0x2248, 0x221A}; // ∑, ∫, π, ≈, √
-    for (UChar32 codepoint : math_symbols) {
+    // Add mathematical operators range (U+2200 to U+22FF)
+    for (UChar32 codepoint = 0x2200; codepoint <= 0x22FF; ++codepoint) {
         if (u_isdefined(codepoint)) {
             UErrorCode status = U_ZERO_ERROR;
             char name[100];
             u_charName(codepoint, U_UNICODE_CHAR_NAME, name, sizeof(name), &status);
             if (U_SUCCESS(status)) {
                 QString description = QString::fromStdString(std::string(name)).toLower();
-                QString symbol = QString::fromUcs4(&codepoint, 1);
+                QString symbol = QString::fromUcs4(reinterpret_cast<const char32_t *>(&codepoint), 1);
+                symbol_data[description] = symbol;
+            }
+        }
+    }
+
+    // Add miscellaneous mathematical symbols A range (U+27C0 to U+27EF)
+    for (UChar32 codepoint = 0x27C0; codepoint <= 0x27EF; ++codepoint) {
+        if (u_isdefined(codepoint)) {
+            UErrorCode status = U_ZERO_ERROR;
+            char name[100];
+            u_charName(codepoint, U_UNICODE_CHAR_NAME, name, sizeof(name), &status);
+            if (U_SUCCESS(status)) {
+                QString description = QString::fromStdString(std::string(name)).toLower();
+                QString symbol = QString::fromUcs4(reinterpret_cast<const char32_t *>(&codepoint), 1);
+                symbol_data[description] = symbol;
+            }
+        }
+    }
+
+    // Add supplemental mathematical operators range (U+2A00 to U+2AFF)
+    for (UChar32 codepoint = 0x2A00; codepoint <= 0x2AFF; ++codepoint) {
+        if (u_isdefined(codepoint)) {
+            UErrorCode status = U_ZERO_ERROR;
+            char name[100];
+            u_charName(codepoint, U_UNICODE_CHAR_NAME, name, sizeof(name), &status);
+            if (U_SUCCESS(status)) {
+                QString description = QString::fromStdString(std::string(name)).toLower();
+                QString symbol = QString::fromUcs4(reinterpret_cast<const char32_t *>(&codepoint), 1);
+                symbol_data[description] = symbol;
+            }
+        }
+    }
+
+    // Add miscellaneous mathematical symbols B range (U+2980 to U+29FF)
+    for (UChar32 codepoint = 0x2980; codepoint <= 0x29FF; ++codepoint) {
+        if (u_isdefined(codepoint)) {
+            UErrorCode status = U_ZERO_ERROR;
+            char name[100];
+            u_charName(codepoint, U_UNICODE_CHAR_NAME, name, sizeof(name), &status);
+            if (U_SUCCESS(status)) {
+                QString description = QString::fromStdString(std::string(name)).toLower();
+                QString symbol = QString::fromUcs4(reinterpret_cast<const char32_t *>(&codepoint), 1);
+                symbol_data[description] = symbol;
+            }
+        }
+    }
+
+    // Add miscellaneous symbols and arrows range (U+2B00 to U+2BFF)
+    for (UChar32 codepoint = 0x2B00; codepoint <= 0x2BFF; ++codepoint) {
+        if (u_isdefined(codepoint)) {
+            UErrorCode status = U_ZERO_ERROR;
+            char name[100];
+            u_charName(codepoint, U_UNICODE_CHAR_NAME, name, sizeof(name), &status);
+            if (U_SUCCESS(status)) {
+                QString description = QString::fromStdString(std::string(name)).toLower();
+                QString symbol = QString::fromUcs4(reinterpret_cast<const char32_t *>(&codepoint), 1);
+                symbol_data[description] = symbol;
+            }
+        }
+    }
+
+    // Add mathematical alphanumeric symbols range (U+1D400 to U+1D7FF)
+    for (UChar32 codepoint = 0x1D400; codepoint <= 0x1D7FF; ++codepoint) {
+        if (u_isdefined(codepoint)) {
+            UErrorCode status = U_ZERO_ERROR;
+            char name[100];
+            u_charName(codepoint, U_UNICODE_CHAR_NAME, name, sizeof(name), &status);
+            if (U_SUCCESS(status)) {
+                QString description = QString::fromStdString(std::string(name)).toLower();
+                QString symbol = QString::fromUcs4(reinterpret_cast<const char32_t *>(&codepoint), 1);
                 symbol_data[description] = symbol;
             }
         }
